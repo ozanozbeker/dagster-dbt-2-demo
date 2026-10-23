@@ -18,3 +18,4 @@ dbt/dbt_packages/
 
 # dagster
 .dagster_home/
+dbt/.user.yml
