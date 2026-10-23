@@ -1,0 +1,24 @@
+models:
+  - name: customer_totals
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
+
+unit_tests:
+  - name: customer_totals_sums_orders
+    model: customer_totals
+    given:
+      - input: ref('stg_customers')
+        rows: [{customer_id: 1, first_name: Ann}]
+      - input: ref('stg_orders')
+        rows: [{order_id: 1, customer_id: 1, amount: 3}, {order_id: 2, customer_id: 1, amount: 4}]
+      - input: ref('stg_events')
+        rows: [{id: 1, customer_id: 2, kind: signup}]
+    expect:
+      rows: [{customer_id: 1, first_name: Ann, total_amount: 7, event_count: 0}]
+
+exposures:
+  - name: customer_dashboard
+    type: dashboard
+    owner: {name: Analytics}
+    depends_on: [ref('customer_totals')]

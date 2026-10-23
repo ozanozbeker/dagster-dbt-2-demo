@@ -1,0 +1,14 @@
+sources:
+  - name: app
+    schema: main
+    tables:
+      - name: raw_events
+        columns:
+          - name: id
+            data_tests: [not_null]
+
+models:
+  - name: stg_customers
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]

@@ -1,0 +1,11 @@
+name: shop
+version: "1.0.0"
+profile: shop
+
+# Stands in for a table that an ingestion tool loads before dbt runs.
+on-run-start:
+  - "create table if not exists main.raw_events as select * from (values (1, 1, 'signup'), (2, 1, 'order'), (3, 2, 'order')) as t(id, customer_id, kind)"
+
+models:
+  shop:
+    +materialized: table

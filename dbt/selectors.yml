@@ -1,0 +1,9 @@
+selectors:
+  - name: marts
+    description: Everything downstream of staging.
+    definition:
+      union:
+        - method: tag
+          value: mart
+        - method: path
+          value: snapshots
